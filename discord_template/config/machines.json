@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "EXAMPLE",
+    "wolInfo": {
+      "NewtworkIP": "192.168.1.255",
+      "Port": 0,
+      "MACAddress": "FF:FF:FF:FF:FF:FF"
+    },
+    "stdmInfo": {
+      "IPAddress": "127.0.0.1",
+      "Port": 23000,
+      "Message": "power_off_signal\n"
+    }
+  }
+]

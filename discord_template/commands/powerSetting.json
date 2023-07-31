@@ -1,0 +1,22 @@
+{
+  "name": "powersetting",
+  "description": "powersettingcommand",
+  "options": [
+    {
+      "name": "setup",
+      "description": "setup command",
+      "type": 3,
+      "required": true,
+      "choices": [
+        {
+          "name": "reload",
+          "value": "reload"
+        },
+        {
+          "name": "add",
+          "value": "add"
+        }
+      ]
+    }
+  ]
+}
