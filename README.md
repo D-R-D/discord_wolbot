@@ -10,7 +10,7 @@ version: "3"
 
 services:
   woltest:
-    image: discord_wol:r6.0_v0.2
+    image: zign/discord_wolbot:r6.0_v0.1
     container_name: woltest
     network_mode: "host"
     deploy:
