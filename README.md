@@ -2,7 +2,7 @@
 
 docker image: https://hub.docker.com/r/zign/discord_wolbot  
 dockerイメージはまだ未完成  
-docker-compose upしたら一回落としてボリューム内の[App.config](/discord_wol/App.config)と[machine.json](/discord_wol/config/machine.json)に設定を書き込む必要あり  
+docker compose upしたら一回落としてボリューム内の[App.config](/discord_wol/App.config)と[machine.json](/discord_wol/config/machine.json)に設定を書き込む必要あり  
   
 docker-compose.yml example
 ``` 
