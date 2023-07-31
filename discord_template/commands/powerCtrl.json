@@ -1,0 +1,22 @@
+{
+  "name": "powerctrl",
+  "description": "pwercontrolcommand",
+  "options": [
+    {
+      "name": "control",
+      "description": "control command",
+      "type": 3,
+      "required": true,
+      "choices": [
+        {
+          "name": "wol",
+          "value": "wol"
+        },
+        {
+          "name": "stdm",
+          "value": "stdm"
+        }
+      ]
+    }
+  ]
+}
