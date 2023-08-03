@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Boot.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="commands\powerCtrl.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
