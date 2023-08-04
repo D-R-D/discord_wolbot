@@ -4,8 +4,8 @@ using Discord.WebSocket;
 using discord_template.wol;
 using discord_wol;
 using discord_wol.power_controller;
+using discord_wolbot.power_controller;
 using System.Configuration;
-using System.Net;
 
 namespace discord_template
 {
@@ -106,7 +106,16 @@ namespace discord_template
                         case "powersetting":
                             commandoption = command.Data.Options.First().Value.ToString()!;
 
-                            if(commandoption == "reload")
+                            if(commandoption == "show")
+                            {
+                                commandoption = command.Data.Options.First().Value.ToString()!;
+                                message = $"[/{commandname}:{commandoption}]@(p.0)\n以下の選択肢からマシンを選択してください。";
+                                menuBuilder = await SelectMenuEditor.CreateMachineMenu(0, commandoption);
+                                builder = new ComponentBuilder().WithSelectMenu(menuBuilder);
+
+                                await command.RespondAsync(message, components: builder.Build(), ephemeral: true);
+                            }
+                            else if(commandoption == "reload")
                             {
                                 Settings.Shared.ReloadMachineInfo();
 
@@ -168,19 +177,26 @@ namespace discord_template
                     string InnerCommandName = CustomValue.First();
                     string InnerCommandValue = CustomValue.Last();
 
+                    string message = string.Empty;
+
                     switch (CommandMode)
                     {
                         case "wol":
                             WolTerminal.SendMagicPacket(Settings.Shared.m_WolMachines[InnerCommandValue]);
+                            message = "Send Magic Packet.";
                             break;
                         case "stdm":
                             StdmTerminal.SendStdmMessage(Settings.Shared.m_WolMachines[InnerCommandValue]);
+                            message = "Send Killer Packet.";
+                            break;
+                        case "show":
+                            message =$"Machine Info\n```json\n{MachineInfoTerminal.GetMachineInfo(InnerCommandValue)}\n```";
                             break;
                         default:
                             return;
                     }
 
-                    await arg.RespondAsync("Packet Send!!");
+                    await arg.RespondAsync(message, ephemeral: true);
                 }
                 catch (Exception ex)
                 {
@@ -207,14 +223,14 @@ namespace discord_template
                     await modal.RespondAsync("不正なコマンドが実行されました。");
                     return;
                 }
-                await modal.RespondAsync("PROCESSING...");
+                await modal.RespondAsync("PROCESSING...", ephemeral: true);
 
                 try
                 {
                     List<SocketMessageComponentData> components = modal.Data.Components.ToList();
                     var CustomID = modal.Data.CustomId;
 
-                    Console.WriteLine(CustomID);
+                    string message = string.Empty;
 
                     if (CustomID == "MACHINE_SETUP")
                     {
@@ -255,8 +271,9 @@ namespace discord_template
                         machineInfo.stdmInfo = stdmInfo;
 
                         Settings.Shared.SetEditMachineInfo(machineInfo);
+                        message = $"CreateOrEdit MachineInfo.\n```json\n{MachineInfoTerminal.GetMachineInfo(str_name)}```";
 
-                        await modal.ModifyOriginalResponseAsync(m => m.Content = "変更を行いました。");
+                        await modal.ModifyOriginalResponseAsync(m => m.Content = message);
                     }
                 }catch(Exception ex)
                 {
