@@ -9,6 +9,10 @@
       "required": true,
       "choices": [
         {
+          "name": "show",
+          "value": "show"
+        },
+        {
           "name": "reload",
           "value": "reload"
         },
